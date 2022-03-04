@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--mapper 是当前文件的根标签 必须的
+   namespace 要求你使用dao接口的全限定名称 dao接口路径-->
+<mapper namespace="org.example.dao.StudentDao">
+
+    <!--select 表示查询-->
+    <!--update 表示更新-->
+    <!--insert 表示插入-->
+    <!--delete 表示删除-->
+
+    <!--
+   id 表示你要执行的sql语句的唯一标识 ，mybatis会使用这个id的值来查找要执行的语句
+    值是 接口的方法名称。
+
+   resultType : 表示要存放的对象类型
+               值是对象位置
+-->
+
+  <select id="selectStudentById" resultType="org.example.domain.Student">
+      select id, name email,age from student where id = #{id}
+  </select>
+
+<!--    多个参数，使用@Param命名-->
+
+    <select id="selectMultiParam" resultType="org.example.domain.Student">
+        select id, name email,age from student where name = #{myname} or age = #{myage}
+    </select>
+
+
+    <!--    多个参数，使用java对象的属性值-->
+    <select id="selectMultiObject" resultType="org.example.domain.Student">
+        select id, name email,age from student where name = #{paramName} or age = #{paramAge}
+    </select>
+
+    <!--第一种模糊查询 -->
+    <select id="selectLikeOne" resultType="org.example.domain.Student">
+        select id,name,email,age from student where name like #{name}
+    </select>
+
+    <!--第二种模糊查询-->
+    <select id="selectLikeTwo" resultType="org.example.domain.Student">
+        select id,name,email,age from student where name like "%" #{name} "%"
+    </select>
+    
+</mapper>
